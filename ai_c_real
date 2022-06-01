@@ -1,0 +1,60 @@
+## 2) 이미지 Noise 제거
+# 각 이미지에 임의의 노이즈를 적용하여 MNIST 데이터세트의 노이즈 버전 생성
+# 이후 노이즈가 있는 이미지를 입력으로 사용하고 원본 이미지를 대상으로 사용하여 autoencoder 훈련
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+
+x_train = x_train.astype('float32') / 255.
+x_test = x_test.astype('float32') / 255.
+
+x_train = x_train[..., tf.newaxis]
+x_test = x_test[..., tf.newaxis]
+
+print(x_train.shape)
+
+# ### MNIST Classifier with real hand writing
+import tensorflow as tf
+from keras.layers import Dense
+
+noise_factor = 0.2
+x_tr
+
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras.layers import *
+from tensorflow.keras.models import Model
+
+input_img = Input(shape=(28, 28, 1))  # 'channels_firtst'이미지 데이터 형식을 사용하는 경우 이를 적용 
+
+x = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img)
+x = MaxPooling2D((2, 2), padding='same')(x)
+x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+encoded = MaxPooling2D((2, 2), padding='same')(x) # encoder의 shape = (samples, 4, 4, 8) 
+
+
+x = Conv2D(32, (3, 3), act
+
+# 28x28 to 7x7 down sampling 확인
+# autoencoder.encoder.summary()
+
+# decoder는 이미지를 7x7에서 28x28로 Up sampling
+
+# autoencoder.decoder.summary()
+
+# autoencoder에서 생성된 노이즈가 있는 이미지와 노이즈가 제거 된 이미지를 모두 플롯
+
+encoded_imgs = encoder.predict(x_test_noisy)
+decoded_imgs = decoder.predict(encoded_imgs)
+
+
+# 원본+노이즈 이미지와 원본과 가깝게 복원된 이미지 확인
+
+n = 10
+plt.figure(figsize=(20, 4))
+for i in range(n):
+
+    # display original + noise
+    ax = plt.subplot(2, n, i + 1)
+    plt.title("original + noise")
+    plt.imshow(tf.squeeze)
+
+
