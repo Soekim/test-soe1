@@ -1,0 +1,43 @@
+import numpy as np
+from tensorflow import keras
+import tensorflow as tf
+from tensorflow.keras import layers, losses
+from matplotlib import pyplot as plt
+from keras.models import Sequential
+from tensorflow.keras.models import Model
+
+# Download MNIST dataset
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+
+# data 전처리 수행
+# calculate the sample mean and std
+mu = x_train.mean()
+
+# 0으로 나누는 것을 방지하기 위해서 매우 작은 값을 더해준다.
+sig = x_train.std()+0.000000001
+
+# normalize (z-score)
+x_train = (x_train - mu) / sig
+
+# train set과 동일한 평균과 표준편차로 test_set도 변경해줘야한다.
+x_test = (x_test - mu) / sig 
+
+# Change the shape of data from (W, W) to (W*W, )
+# 여기서는 마지막에 1은 흑백사진이므로 채널을 맞춰주기 위해서 써준다.
+x_train = x_train.reshape((-1, 28,28,1))
+x_test = x_test.reshape((-1, 28,28,1))
+
+# convert class vectors to binary class matrices 
+y_train = keras.utils.to_categorical(y_train,10)
+y_test = keras.utils.to_categorical(y_test,10)
+
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+
+# sample 확인
+# data sample
+plt.figure()
+plt.imshow(x_train[1].reshape(28,28))
+plt.show()
